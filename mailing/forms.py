@@ -1,15 +1,28 @@
 from django import forms
+from django.forms import ModelForm
 
-from mailing.models import Mailing, Client
+from mailing.models import Mailing, Client, Message
 
 
 class MailingForm(forms.ModelForm):
-
     class Meta:
         model = Mailing
         fields = '__all__'  # Включить все поля из модели Рассылки
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['clients'].widget = forms.CheckboxSelectMultiple()  # Используйте флажки для клиентов
-        self.fields['clients'].queryset = Client.objects.filter(is_active=True)  # Показывать только активных клиентов
+
+class MailingCreateForm(ModelForm):
+    class Meta:
+        model = Mailing
+        exclude = ['owner', 'is_active']
+
+
+class MessageForm(ModelForm):
+    class Meta:
+        model = Message
+        exclude = ['owner']
+
+
+class ClientForm(ModelForm):
+    class Meta:
+        model = Client
+        exclude = ['owner']

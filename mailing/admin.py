@@ -6,8 +6,7 @@ from mailing.models import Client, Message, Mailing, Attempt
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('last_first_name', 'email', 'is_active',)
-    list_filter = ('is_active',)
+    list_display = ('last_first_name', 'email',  'pk',)
 
     def last_first_name(self, obj):
         return f"{obj.last_name} {obj.first_name}"
@@ -18,12 +17,13 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at',)
+    list_display = ('title', 'created_at', 'pk',)
 
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'clients_count', 'status',)
+    list_display = ('title', 'created_at', 'clients_count', 'status', 'pk',)
+    list_filter = ('status',)
 
     form = MailingForm  # Используйте пользовательскую форму
 
@@ -35,5 +35,5 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('at_last_attempt', 'status_attempt',)
-    list_filter = ('status_attempt',)
+    list_display = ('at_last_attempt', 'status', 'pk',)
+    list_filter = ('status',)
