@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),       # вход
     path('logout/', LogoutView.as_view(), name='logout'),                               # выход
     path('register/', RegisterView.as_view(), name='register'),                         # регистрация
-    path('email-confirm/<str:token>/', email_verification, name='email-confirm'),     # верификация почты
+    path('users/email-confirm/<str:token>/', email_verification, name='email-confirm'),     # верификация почты
     path('reset_password/', reset_password, name='reset_password'),                   # сброс и восстановление пароля
     path('profile/', ProfileView.as_view(), name='profile'),                          # редактирование профиля
     path('users/', user_list, name='user_list'),
