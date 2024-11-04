@@ -70,11 +70,9 @@
                                 {% if mailing.is_active %}
                                     <a class="btn btn-success" href="{% url 'mailing:toggle_activation' mailing.pk %}"
                                    role="button" style="width: 130px;">Отключить</a>
-
                                 {% else %}
                                     <a class="btn btn-danger" href="{% url 'mailing:toggle_activation' mailing.pk %}"
                                    role="button" style="width: 130px;">Включить</a>
-
                                 {% endif %}
 
                             {% endif %}

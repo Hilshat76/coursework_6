@@ -15,25 +15,8 @@ from mailing.services1 import send_mailing_email
 logger = logging.getLogger(__name__)
 
 
-# def update_mailing_status():
-#     """Обновляет статусы рассылок в зависимости от текущей даты"""
-#     now = timezone.now()
-#     mailings = Mailing.objects.all()
-#     for mailing in mailings:
-#         if now < mailing.at_start:
-#             mailing.status = Mailing.Status.CREATED
-#         elif now > mailing.at_end:
-#             mailing.status = Mailing.Status.FINISHED
-#         else:
-#             mailing.status = Mailing.Status.RUNNING
-#         mailing.save()
-
-
-def send_mailings():
-    """
-    Обновляет статусы рассылок в зависимости от текущей даты.
-    Получает и отправка всех активных рассылок, которые запущены в данный момент.
-    """
+def update_mailing_status():
+    """Обновляет статусы рассылок в зависимости от текущей даты"""
     now = timezone.now()
     mailings = Mailing.objects.all()
     for mailing in mailings:
@@ -45,9 +28,26 @@ def send_mailings():
             mailing.status = Mailing.Status.RUNNING
         mailing.save()
 
-    mailings = Mailing.objects.filter(is_active=True, status=Mailing.Status.RUNNING)
-    for mailing in mailings:
-        send_mailing_email(mailing.pk)
+
+# def send_mailings():
+#     """
+#     Обновляет статусы рассылок в зависимости от текущей даты.
+#     Получает и отправка всех активных рассылок, которые запущены в данный момент.
+#     """
+#     now = timezone.now()
+#     mailings = Mailing.objects.all()
+#     for mailing in mailings:
+#         if now < mailing.at_start:
+#             mailing.status = Mailing.Status.CREATED
+#         elif now > mailing.at_end:
+#             mailing.status = Mailing.Status.FINISHED
+#         else:
+#             mailing.status = Mailing.Status.RUNNING
+#         mailing.save()
+#
+#     mailings = Mailing.objects.filter(is_active=True, status=Mailing.Status.RUNNING)
+#     for mailing in mailings:
+#         send_mailing_email(mailing.pk)
 
 
 scheduler = BackgroundScheduler()
